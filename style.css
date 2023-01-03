@@ -1,0 +1,39 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+.calculator{
+
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen{
+    background-color: green;
+    width:50em;
+    height: 5em;
+}
+
+.keys{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto auto;
+    width: 50em;
+    height: 30em;
+}
+
+.clear-btn{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.delete-btn{
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
