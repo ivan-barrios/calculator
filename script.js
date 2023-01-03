@@ -20,31 +20,30 @@ const opScreen = document.querySelector('.op-screen');
 //EventListeners
 numberBtns.forEach((numBtn) => {
     numBtn.addEventListener(('click'), () => displayNumbers(numBtn.textContent));
-})
-operatorBtns.forEach((opBtn) => {
-    opBtn.addEventListener('click', () => displayOp(opBtn.textContent));
-})
+});
+
 pointBtn.addEventListener('click', () => displayPoint());
+
+operatorBtns.forEach((opBtn) => {
+    opBtn.addEventListener('click', () => setOperators(opBtn.textContent));
+});
 
 
 function displayNumbers(num){
+    //How to remove the 0?
     currentScreen.textContent += num;
-    displayValue = Number(currentScreen.textContent);
 }
 
 function displayPoint(){
-    if (displayValue === ''){
+    if (currentScreen.textContent === ''){
         currentScreen.textContent = '0';
     }
     if (currentScreen.textContent.includes('.')) return 
         currentScreen.textContent += '.';
-    displayValue = Number(currentScreen.textContent);
 }
 
-function displayOp(op){
-    if (typeof displayValue === "number"){
-        screen.textContent += op;
-    }
+function setOperators(op){
+
 }
 
 //DISPLAY and INPUT FUNCTIONS ENDS
@@ -70,6 +69,20 @@ function divide(a, b){
 }
 
 function operate(operator, a, b){
-    //calls one of the above functions
+    a = Number(a);
+    b = Number(b);
+    switch (operator){
+        case '+':
+            return add(a,b);
+        case '-':
+            return subtract(a,b);
+        case 'x':
+            return multiply(a,b);
+        case '÷':
+            if (b === 0) return null;
+            else return divide(a,b);
+        default:
+            return null;
+    }
 }
 //CALCULATOR FUNCTIONS ENDS
