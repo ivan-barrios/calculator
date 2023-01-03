@@ -18,6 +18,16 @@ body{
     background-color: green;
     width:50em;
     height: 5em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-evenly;
+}
+.op-screen{
+
+}
+.current-screen{
+    
 }
 
 .keys{
