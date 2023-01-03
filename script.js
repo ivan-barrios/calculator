@@ -1,6 +1,5 @@
-let displayValue = '';
-let shouldResetScreen = false;
-
+let firstValue = '';
+let updateCalc = false;
 
 
 
@@ -30,8 +29,8 @@ operatorBtns.forEach((opBtn) => {
 
 
 function displayNumbers(num){
-    //How to remove the 0?
-    currentScreen.textContent += num;
+    if (currentScreen.textContent === '0') currentScreen.textContent = num;
+    else currentScreen.textContent += num;
 }
 
 function displayPoint(){
@@ -43,7 +42,7 @@ function displayPoint(){
 }
 
 function setOperators(op){
-
+    
 }
 
 //DISPLAY and INPUT FUNCTIONS ENDS
