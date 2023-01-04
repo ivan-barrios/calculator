@@ -3,9 +3,6 @@ let secondValue
 let operator = null;
 let shouldUpdate = false;
 
-
-
-
 //DISPLAY and INPUT FUCNTIONS STARTS
 
 //Selectors
