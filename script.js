@@ -1,5 +1,7 @@
-let firstValue = '';
-let updateCalc = false;
+let firstValue
+let secondValue
+let operator = null;
+let shouldUpdate = false;
 
 
 
@@ -10,7 +12,7 @@ let updateCalc = false;
 const numberBtns = document.querySelectorAll('.number-btn');
 const operatorBtns = document.querySelectorAll('.operator-btn');
 const pointBtn = document.getElementById('pointBtn');
-const equalsBtn = document.querySelector('.equalsBtn');
+const equalsBtn = document.getElementById('equalsBtn');
 const deleteBtn = document.getElementById('deleteBtn');
 const clearBtn = document.getElementById('clearBtn');
 const currentScreen = document.querySelector('.current-screen');
@@ -27,23 +29,67 @@ operatorBtns.forEach((opBtn) => {
     opBtn.addEventListener('click', () => setOperators(opBtn.textContent));
 });
 
+equalsBtn.addEventListener('click', () => startOperation());
+
+clearBtn.addEventListener('click', () => clearScreen());
+
+deleteBtn.addEventListener('click', () => deleteNumber());
+
 
 function displayNumbers(num){
-    if (currentScreen.textContent === '0') currentScreen.textContent = num;
-    else currentScreen.textContent += num;
-}
+    if (currentScreen.textContent === '0' || shouldUpdate){
+        resetScreen();
+    }
+    currentScreen.textContent += num;
+}//Displays the numbers
 
 function displayPoint(){
+    if (shouldUpdate) resetScreen();
     if (currentScreen.textContent === ''){
         currentScreen.textContent = '0';
     }
     if (currentScreen.textContent.includes('.')) return 
         currentScreen.textContent += '.';
-}
+}//Displays correctly the point
 
 function setOperators(op){
-    
-}
+    if (operator !== null) startOperation();
+    firstValue = currentScreen.textContent;
+    operator = op;
+    opScreen.textContent = firstValue + " " + op;
+    shouldUpdate = true;
+}//Stores the first value and the operator
+
+function resetScreen(){
+    currentScreen.textContent = '';
+    shouldUpdate = false;
+}//Resets the screen if a new number needs to be displayed
+
+function startOperation(){
+    if (shouldUpdate || operator === null) return;
+    if (operator === '÷' && currentScreen.textContent === '0'){
+        alert('You cannot divide by 0!');
+        return
+    }
+    secondValue = currentScreen.textContent;
+    opScreen.textContent += ' ' + secondValue + ' ' + '=';
+    currentScreen.textContent = Math.round(
+        operate(operator, firstValue, secondValue)*1000) / 1000;
+    operator = null;
+}//Starts the operation
+
+function clearScreen(){
+    firstValue = '';
+    secondValue = '';
+    operator = null;
+    currentScreen.textContent = '0';
+    opScreen.textContent = '';
+}//For the CLEAR button
+
+function deleteNumber(){
+    currentScreen.textContent = currentScreen.textContent.slice(0, -1);
+}//Deletes the last number written
+ //What can I do with the operators?
 
 //DISPLAY and INPUT FUNCTIONS ENDS
 
@@ -78,8 +124,7 @@ function operate(operator, a, b){
         case 'x':
             return multiply(a,b);
         case '÷':
-            if (b === 0) return null;
-            else return divide(a,b);
+            return divide(a,b);
         default:
             return null;
     }
